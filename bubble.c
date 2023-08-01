@@ -1,5 +1,4 @@
 #include <stdio.h>
-#define SIZE 5
 
 void swap(a, b)
 int *a, *b;
@@ -9,27 +8,36 @@ int *a, *b;
   *b = temp;
 }
 
-void print_array(a)
+void print_array(a, size)
 int a[];
+int size;
 {
   int i;
-  for (i = 0; i < SIZE; i++)
-    printf("%d%s", a[i], (i != SIZE - 1) ? ", " : "\n");
+  for (i = 0; i < size - 1; i++)
+    printf("%d,", a[i]);
+  printf("%d\n", a[size - 1]);
 }
 
-int main()
+void bubble_sort(array, size)
+int array[];
+int size;
 {
-  int a[] = {1, 3, 2, 5, 4};
   int i, j;
 
-  print_array(a);
-
-  for (i = 0; i < SIZE; i++)
-    for (j = 0; j < SIZE - 1; j++)
-      if (a[i] > a[j])
-        swap(&a[i], &a[j]);
+  for (i = 0; i < size; i++)
+    for (j = 0; j < size - 1; j++)
+      if (array[i] < array[j])
+        swap(&array[i], &array[j]);
+}
   
-  print_array(a);
+int main()
+{
+  int a[] = {1, 3, 10, 2, 5, 4, 2};
+  int size = sizeof(a) / sizeof(a[0]);
+  
+  print_array(a, size);
+  bubble_sort(a, size);
+  print_array(a, size);
 
   return(0);
 }
