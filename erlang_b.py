@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar 25 17:36:45 2024
+Created on Mon Mar 25 19:36:45 2024
 
 @author: farismismar
 """
@@ -38,7 +38,6 @@ def erlang_blocking_vector(x) -> float:
 
 # Uses a global optimizer over a region
 def erlang_load(trunks: float, gos: float) -> float:
-    
     offered_max = trunks / (1. - gos)
     bounds = [(0, offered_max), (trunks, trunks), (gos, gos)]   
     result = optimize.shgo(erlang_blocking_vector, bounds=bounds)
@@ -52,14 +51,12 @@ def offered_to_carried(offered: float, gos: float) -> float:
     # offered is traffic with no blocking
     carried = 0 * gos + offered * (1 - gos)
     assert (carried <= offered)
-    
     return carried
 
 
 def carried_to_offered(carried: float, gos: float) -> float:
     offered = carried / (1. - gos)
     assert (carried <= offered)
-    
     return offered
 
 
