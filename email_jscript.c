@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-typedef unsigned int bool;
+typedef enum {false, true} bool;
 
 bool is_character(char c)
 {
@@ -13,32 +13,33 @@ bool is_email(char *email_addr)
 {
 	/* Easy things first.  Start with a char */
 	if (!is_character(email_addr[0]))
-		return 0;
+		return false;
 	
 	int at_loc = -1;
 	int dot_loc = -1;
 	int i = 0;
 	for (; email_addr[i] != '\0'; i++) {
-		if (email_addr[i] == '@') 
+		if ((email_addr[i] == '@') && (at_loc == -1))
 			at_loc = i;
 		if (email_addr[i] == '.')
 			dot_loc = i;
 	}
 	int email_length = i - 1;
 
-	/* Both a dot and @ must be present */
+	/* A dot must present at least once; however
+	 * @ must be present only once! */
 	if ((at_loc == -1) || (dot_loc == -1))
-		return 0;
+		return false;
 
 	/* Both dot and @ cannot be at the beginning or end */
 	if ((at_loc == 0) || (dot_loc == 0))
-		return 0;
+		return false;
 
 	if ((at_loc == email_length) || (dot_loc == email_length))
-		return 0;
+		return false;
 
 	/* No other tests hold, so hopefully this is a valid email addr. */
-	return 1;
+	return true;
 }
 
 void print_jscript(char *email_addr)
@@ -60,7 +61,7 @@ int main()
 	if (is_email(email))
 		print_jscript(email);
 	else
-		printf("ERROR: Wrong email address.");
+		printf("ERROR: Wrong email address format.\n");
 
 	return 0;
 }
