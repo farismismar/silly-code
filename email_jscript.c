@@ -47,7 +47,7 @@ void print_jscript(char *email_addr)
 	int i = 0;
 	char c;
 	while ((c = email_addr[i++]) != '\0') 
-		printf("\\u00%x", c);
+		printf("\\u00%x", (unsigned int)c);
 	printf("';void 0\n");
 }
 
@@ -55,7 +55,7 @@ int main()
 {
 	char email[20] = "";
 	printf("Enter email address: ");
-	scanf("%s", email);
+	scanf("%19s", email); /* the \0 character takes one. */
 
 	if (is_email(email))
 		print_jscript(email);
