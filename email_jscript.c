@@ -11,10 +11,6 @@ bool is_character(char c)
 
 bool is_email(char *email_addr)
 {
-	/* Easy things first.  Start with a char */
-	if (!is_character(email_addr[0]))
-		return false;
-	
 	int at_loc = -1;
 	int dot_loc = -1;
 	int i = 0;
@@ -23,6 +19,9 @@ bool is_email(char *email_addr)
 			at_loc = i;
 		if (email_addr[i] == '.')
 			dot_loc = i;
+		/* The case where non-alphanumeric characters besides the at sign, the underscore, and the period exist. */
+		if ((email_addr[i] != '.') && (email_addr[i] != '@') && (email_addr[i] != '_') && (!is_character(email_addr[i])))
+			return false;
 	}
 	int email_length = i - 1;
 
