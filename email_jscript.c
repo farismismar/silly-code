@@ -2,31 +2,12 @@
 
 typedef unsigned int bool;
 
-bool is_character(char);
-bool is_email(char *);
-void print_jscript(char *);
-
-int main()
-{
-	char email[20] = "";
-	printf("Enter email address: ");
-	scanf("%s", email);
-
-	if (is_email(email))
-		print_jscript(email);
-	else
-		printf("ERROR: Wrong email address.");
-
-	return 0;
-}
-
 bool is_character(char c)
 {
 	return ((c >= 'a') && (c <= 'z')) ||
 		((c >= 'A') && (c <= 'Z')) ||
 		((c >= '0') && (c <= '9'));
 }
-
 
 bool is_email(char *email_addr)
 {
@@ -70,3 +51,16 @@ void print_jscript(char *email_addr)
 	printf("';void 0\n");
 }
 
+int main()
+{
+	char email[20] = "";
+	printf("Enter email address: ");
+	scanf("%s", email);
+
+	if (is_email(email))
+		print_jscript(email);
+	else
+		printf("ERROR: Wrong email address.");
+
+	return 0;
+}
