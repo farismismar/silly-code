@@ -26,7 +26,7 @@ print(tf.config.list_physical_devices('GPU'))
 # The GPU ID to use, usually either "0" or "1" based on previous line.
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-seed = 47
+seed = 42
 np_random = np.random.RandomState(seed)
 
 max_iter = 10000
